@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alternative index</title>
+    <link rel="stylesheet" type="text/css" href="assets/styles.css">
+</head>
+<body>
+    <div id="main">
+        <!--ROOT-->
+    </div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+    <script type="text/babel">
+
+        //AQUI É O COMPONENTE PAI QUE VAI ABRIGAR UMA SECTION DE CLASSE
+        //COMMENT, QUE POR SUA VEZ IRÁ ABRIGAR 2 CONTEÚDOS: O COMPONENTE
+        //DE VOTAR E O COMPONENTE DE COMENTÁRIO. O COMPONENTE DE COMENT-
+        //ÁRIO POR SUA VEZ IRA CONTER DOIS COMPONENTES, O DE INFORMAÇÕES
+        //DO PERFIL QUE COMENTOU, COMO FOTO, NOME, HORA E REPLY E TAMBÉM
+        //O CONTEÚDO DO COMENTARIO EM FORMATO DE TEXTO
+        const SectionComment = () => {
+            return(
+               <React.Fragment>
+                <Comment name="Amy Robson" picture="images/avatars/image-amyrobson.png"/>
+                <Comment name="Julio Somo" picture="images/avatars/image-juliusomo.png"/>
+                <Comment name="Max Blangum" picture="images/avatars/image-maxblagun.png"/>
+                </React.Fragment>
+            )
+        }
+        //O COMPONENTE ABAIXO ABRIGA OS VOTOS E O COMENTÁRIO
+        const Comment = ({name, picture}) => {
+            return(
+                <section className="comment">
+                    <Vote/>
+                    <CommentInfos name={name} picture={picture}/>
+                </section>
+            )
+        }
+
+        //AQUI É O COMPONENTE DE VOTOS
+        const Vote = () => {
+            const[vote, setVote] = React.useState(0);
+
+            function VoteUp(){
+                setVote(vote=>vote+1);
+            }
+            function VoteDown(){
+                setVote(vote=>vote-1);
+            }
+            React.useEffect(()=>{
+                let random = Math.floor(Math.random()*10);
+                setVote(()=>random)
+            },[])
+            React.useEffect(()=>{
+                let totalOfVotes = document.querySelector(".votes span");
+                totalOfVotes.innerHTML=vote;
+            },[])
+
+            return(
+                <div className="votes">
+                    <button onClick={VoteUp} type="button" className="upVote">+</button>
+                        <span>{vote}</span>
+                    <button onClick={VoteDown} type="button" className="downVote">-</button>
+                </div>
+            )
+        }
+
+        //AQUI VAI UMA DIV COM AS INFORMAÇÕES DO COMENTÁRIO E O TEXTO DO
+        //COMENTÁRIO
+        const CommentInfos = ({name, picture}) => {
+            return(
+                <div className="commentInfo">
+                    <UserInfos  name={name} picture={picture}/>
+                    <TextComment/>
+                </div>
+            )
+        }
+
+        //AQUI SÃO AS INFORMAÇÕES DO COMENTÁRIO
+        const UserInfos = ({name, picture}) => {
+            return(
+                <div className="userInfos">
+                    <UserPicture picture={picture}/>
+                    <p className="name">{name}</p>
+                    <p className="date"> 1 week ago</p>
+                    <EditComment/>
+                </div>
+            )
+        }
+        //AQUI VAI A FOTO DO USUÁRIO QUE COMENTOU
+        const UserPicture = ({picture}) => {
+            return(
+                <img className="profilePicture" src={picture}></img>
+            )
+        }
+
+        //AQUI É O COMPONENTE REPLY(uma seta e o nome reply)
+        const EditComment = () => {
+            return(
+                <div className="editComment">
+                    <img src="images/icon-reply.svg"></img>
+                    <p className="reply">reply</p>
+                </div>
+            )
+        }
+
+        //AQUI VAI O TEXTO DO COMENTÁRIO
+        //*estou usando um gerador de frases aleatórias
+        //para criar os comentários anteriores dinamicamente
+        const TextComment = () => {
+            const[text, setText] = React.useState("");
+            React.useEffect(()=>{
+                async function FetchUrl(){
+                    const url = await fetch("https://api.adviceslip.com/advice");
+                    const response = await url.json();
+                    setText(()=>response.slip.advice)
+                }
+                FetchUrl()
+            },[])
+            return(
+                <p className="textComment">
+                    {text}
+                </p>
+            )
+        }
+
+
+        ReactDOM.render(<SectionComment/>, document.querySelector("#main"));
+    </script>
+</body>
+</html>
