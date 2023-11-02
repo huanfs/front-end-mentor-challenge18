@@ -17,3 +17,4 @@ O DE VOTAR E O DE COMENTÁRIO GERAL
 
 --COISAS A FAZER--
 criar o layout mobile e implementar a função CRUD de criar editar e excluir o comentário
+

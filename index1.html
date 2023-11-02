@@ -10,6 +10,10 @@
     <div id="main">
         <!--ROOT-->
     </div>
+    
+    <div id="postComment">
+        <!--post-comment-->
+    </div>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
@@ -127,8 +131,37 @@
             )
         }
 
+        //AQUI SERÁ O COMPONENTE DE CRIAR UM NOVO COMENTÁRIO
+        const PostComment = () => {
+            return(
+                <article className="postComment">
+                    <UserPicture picture="images/avatars/image-ramsesmiron.png"/>
+                    <InsertComment/>
+                    <Post/>
+                </article>
+            )
+        }
+        //*component input de inserir o comentário
+        const InsertComment = () => {
+            return(
+                <input className="insertComment"type="text" placeholder="Add a comment..."/>
+            )
+        }
+        //*componente de botão comentar
+        const Post = () => {
+            function PostComment(){
+                alert("esta é a função que irá renderizar o comentário!");
+                ReactDOM.render(<CommentInfos/>, document.querySelector("#main"));
+            }
+            return(
+                <button onClick={PostComment} type="button">post</button>
+            )
+        }
+
+
 
         ReactDOM.render(<SectionComment/>, document.querySelector("#main"));
+        ReactDOM.render(<PostComment/>, document.querySelector("#postComment"));
     </script>
 </body>
 </html>
