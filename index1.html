@@ -145,18 +145,62 @@
         }
         //*component input de inserir o comentário
         const InsertComment = () => {
+            const[myComment, setMyComment] = React.useState("");
+
+            React.useEffect(()=>{
+                localStorage.setItem("myComentary", myComment);
+            },[myComment])
             return(
-                <input className="insertComment"type="text" placeholder="Add a comment..."/>
+                <input onChange={e=>setMyComment(e.target.value)} className="insertComment"type="text" placeholder="Add a comment..."/>
             )
         }
 
         //*componente de botão comentar
-        const Post = () => {
+        const Post = (event) => {
             function PostNewComment(){
-                ReactDOM.render(<Comment/>, document.querySelector("#newPosts"));
+                ReactDOM.render(<MyComment/>, document.querySelector("#newPosts"));
             }
             return(
                 <button onClick={PostNewComment} type="button">post</button>
+            )
+        }
+
+        //*NOVOS COMPONENTES. DAQUI PRA BAIXO PODE MNODIFICAR TUDO NESTE CARALHO
+        const MyComment = () => {
+            return(
+                <section className="comment">
+                    <Vote/>
+                    <MyCommentInfos name="you" picture="images/avatars/image-amyrobson.png"/>
+                </section>
+            )
+        }
+
+
+        const MyCommentInfos = ({name, picture}) => {
+            return(
+                <div className="commentInfo">
+                    <MyUserInfos  name={name} picture={picture}/>
+                    <MyTextComment/>
+                </div>
+            )
+        }
+
+        const MyUserInfos = ({name, picture}) =>{
+            return(
+                <div className="userInfos">
+                    <UserPicture picture={picture}/>
+                    <p className="name">{name}</p>
+                    <p className="date"> 1 week ago</p>
+                    <EditComment/>
+                </div>
+            )
+        }
+
+        const MyTextComment = () => {
+            return(
+                <p className="textComment">
+                   Cabeça de gelo
+                </p>
             )
         }
 
