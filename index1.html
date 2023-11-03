@@ -10,7 +10,9 @@
     <div id="main">
         <!--ROOT-->
     </div>
-    
+    <div id="newPosts">
+        <!--novo comentário!-->
+    </div>
     <div id="postComment">
         <!--post-comment-->
     </div>
@@ -147,16 +149,17 @@
                 <input className="insertComment"type="text" placeholder="Add a comment..."/>
             )
         }
+
         //*componente de botão comentar
         const Post = () => {
-            function PostComment(){
-                alert("esta é a função que irá renderizar o comentário!");
-                ReactDOM.render(<CommentInfos/>, document.querySelector("#main"));
+            function PostNewComment(){
+                ReactDOM.render(<Comment/>, document.querySelector("#newPosts"));
             }
             return(
-                <button onClick={PostComment} type="button">post</button>
+                <button onClick={PostNewComment} type="button">post</button>
             )
         }
+
 
 
 

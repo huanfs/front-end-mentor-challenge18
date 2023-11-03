@@ -29,7 +29,7 @@ body{
     display:flex;
     flex-direction:column;
     padding:2em 0;
-    gap:2em;
+    gap:1em;
     margin-left:50%;
     transform:translateX(-50%);
 
@@ -144,10 +144,11 @@ body{
 #postComment{
     width:70%;
     padding:10px;
+    margin-top:2em;
     margin-left:50%;
     transform:translateX(-50%);
-    position:absolute;
-    bottom:20px;
+    /* position:absolute;
+    bottom:20px; */
     background-color:var(--White);
     border-radius:10px;
 }
@@ -189,10 +190,22 @@ body{
 
 /*-----------------------NOVOS COMENTÁRIOS---*/
 
-#newComentaries{
-    width:100px;
-    height:100px;
-    border:2px solid red;
+#newPosts{
+    width:70%;
+    max-height:131px;
+    margin-left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    align-items:center;
+    gap:1em;
+    padding:1.6em;
+    border-radius:10px;
+    background-color:var(--White);
+}
+#newPosts .comment{
+    height:100%;
+    width:100%;
+    padding:0;
 }
 
 
