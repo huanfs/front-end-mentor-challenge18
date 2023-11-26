@@ -17,4 +17,8 @@ O DE VOTAR E O DE COMENTÁRIO GERAL
 
 --COISAS A FAZER--
 criar o layout mobile e implementar a função CRUD de criar editar e excluir o comentário
+(criar o comentário ja foi, falto so colocar o texto do imput para ser mostrado dentro do comentário criado)
+
+/*NÃO FINALIZADO*/
+
 
